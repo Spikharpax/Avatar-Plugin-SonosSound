@@ -1,2 +1,4 @@
 Contrôle le son d'un appareil Sonos depuis l'interface d'A.V.A.T.A.R
 
+SonosSound est aussi un plugin de démonstration de l'ajout d'éléments avec menu circulaire dans l'interface
+
