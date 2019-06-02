@@ -1,0 +1,9 @@
+{
+	"modules": {
+		"SonosSound": {
+			"version": "1.0",
+			"name": "Sonos Sound",
+			"room": "Salon"
+		}
+	}
+}
