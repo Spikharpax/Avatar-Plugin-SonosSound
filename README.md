@@ -1,6 +1,6 @@
-# Avatar-Plugin-SonosSound
+# SonosSound
 
-Ce plugin est un add-on pour le framework [Avatar](https://github.com/Spikharpax/A.V.A.T.A.R).
+Ce plugin est un add-on pour le framework [A.V.A.T.A.R](https://github.com/Spikharpax/A.V.A.T.A.R).
 
 Contrôle le volume d'un appareil Sonos par un bouton avec un menu circulaire dans l'interface d'A.V.A.T.A.R
 <BR>Nécessite le plugin [SonosPlayer](https://github.com/Spikharpax/Avatar-Plugin-SonosPlayer)
