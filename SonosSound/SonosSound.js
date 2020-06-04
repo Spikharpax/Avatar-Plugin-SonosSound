@@ -1,20 +1,20 @@
 // Ce qui crée le tabelau de commande
 // plus d'infos: https://github.com/cytoscape/cytoscape.js-cxtmenu
-let cxtmenu = require('cytoscape-cxtmenu');
+let cxtmenu;
 // Lib Avatar
 // Toutes les fonctions détaillées dans SonosSound\node_modules\cyto-avatar\lib\cyto-avatar.js
 const {Graph} = require('cyto-avatar');
+const cron = require('cron').CronJob;
 
 let cyto;
 let CY;
 let cytoscape;
 let menu;
 let volume;
+let destroyMenu;
 
 function addCytoMenu (elem) {
-
 	if (elem.hasClass('SonosSound') && menu == null) {
-
 			// Création du menu,
 			// Le tableau est créé par le nombre de commands.
 			// Couleur de base
@@ -150,10 +150,37 @@ function addCytoMenu (elem) {
 			};
 			// Création du menu
 			menu = CY.cxtmenu(defaults);
+			destroy_menu();
+
 	} else if (menu) {
 			menu.destroy();
 			menu = null;
 	}
+
+}
+
+
+function destroy_menu() {
+
+  if (destroyMenu) {
+    destroyMenu.stop();
+    destroyMenu = null;
+  }
+
+  let d = new Date();
+  
+  // 7 secondes pour utiliser le menu avant fermeture automatique
+  // Fait pour éviter que le menu soit utilisé dans les autres nodes
+  let s = d.getSeconds()+7;  
+  d.setSeconds(s);
+  destroyMenu = new cron(d, function(done) {
+    if (menu) {
+      if (menu) menu.destroy();
+      menu = null;
+      destroyMenu = null;
+      return;
+    }
+  },null, true);
 
 }
 
@@ -183,7 +210,10 @@ exports.addPluginElements = function(CY_param, cyto_param){
 
 	CY = CY_param;
 	cytoscape = cyto_param;
-	cytoscape.use(cxtmenu);
+	try {
+    cxtmenu = require('cytoscape-cxtmenu');
+    cytoscape.use(cxtmenu);
+  } catch (err) {}
 
 	cyto = new Graph (CY, __dirname);
 	cyto.loadAllGraphElements()
